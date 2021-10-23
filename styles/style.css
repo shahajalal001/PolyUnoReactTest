@@ -1,0 +1,6 @@
+/*
+    Main Styles Sheet
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
