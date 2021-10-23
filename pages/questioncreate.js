@@ -65,6 +65,26 @@ const QuestionCreate = () => {
         });
     }
 
+    const onQuestionFieldLabelChanged = (mainIndex, index, event) => {
+        event.preventDefault();
+        event.persist();
+
+        setQuestion(prev => {
+            return prev.map((item, i) => {
+                if (i !== mainIndex) {
+                    return item;
+                }
+                item.questions.map((element, j) => {
+                    if (j !== index) {
+                        return element;
+                    }
+                    element.label = event.target.value
+                })
+                return item
+            })
+        })
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
@@ -112,7 +132,7 @@ const QuestionCreate = () => {
                                                         name="label"
                                                         placeholder="Label"
                                                         value={item.label}
-                                                        //onChange={(e) => onChange(index, e)}
+                                                        onChange={(e) => onQuestionFieldLabelChanged(mainIndex, index, e)}
                                                     />
                                                 </div>
 
