@@ -185,6 +185,33 @@ const QuestionCreate = () => {
         })
     }
 
+    const radioOnchange = (mainIndex, index, index_one, event) => {
+        event.preventDefault();
+        event.persist();
+        setQuestion(prev => {
+            return prev.map((item, i) => {
+                if (i !== mainIndex) {
+                    return item;
+                }
+                item.questions.map((element, j) => {
+                    if (j !== index) {
+                        return element;
+                    }
+                    let options = element.options
+                    options = options.map(element_one => {
+                        if(element_one === options[index_one]){
+                            element_one.label = event.target.value
+                        }
+                        return element_one
+                    })
+                    element.options = options
+                    return element
+                })
+                return item
+            })
+        })
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
@@ -313,7 +340,7 @@ const QuestionCreate = () => {
                                                                 className='mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                                                 name="option"
                                                                 placeholder="Option"
-                                                                //onChange={(e) => radioOnchange(index_one, e, item)}
+                                                                onChange={(e) => radioOnchange(mainIndex, index, index_one, e)}
                                                             />
                                                         </div>
 
