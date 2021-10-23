@@ -1,18 +1,20 @@
+import {useRouter} from "next/router";
 import Form from "../components/form";
 import {useState, useEffect} from "react";
 import useAxios from "../app/axios";
-
-const Home = () => {
+const DynamicCheck = () => {
+    const router = useRouter()
+    const { id } = router.query
     const axios = useAxios()
     const [question, setQuestion] = useState()
     useEffect(async () => {
         let {data} = await axios.post('/admin/get', {
-            _id: "61742faaf5f1e392561525c8"
+            _id: id
         })
         if(data?.error === false) {
             setQuestion(data.data.question)
         }
-    }, [])
+    }, [id])
     return(
         <div className='w-full max-w-4xl mx-auto'>
             {
@@ -31,4 +33,5 @@ const Home = () => {
         </div>
     )
 }
-export default Home
+
+export default DynamicCheck
