@@ -17,14 +17,14 @@ const Options = ({field, fieldChanged}) => {
                                     type={field.type}
                                     id={option.value}
                                     name={field._uid}
-                                    value={field.value}
+                                    value={field.label}
                                     checked={value}
                                     onChange={(e) => {
                                         fieldChanged(field._uid, e.target.value);
                                         selectChange(value);
                                     }}
                                 />
-                                <span className="ml-2">{option.label}</span>
+                                <span className="ml-2">{field.label}</span>
                             </label>
                             {index < field.options.length - 1 && <br />}
                         </Fragment>
