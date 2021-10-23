@@ -2,6 +2,7 @@ import {useState} from "react";
 import Modal from "../components/modal";
 import uniqueString from "unique-string";
 import Form from "../components/form";
+import useAxios from "../app/axios";
 
 const QuestionCreate = () => {
     const [showModal, setShowModal] = useState(false);
@@ -212,15 +213,36 @@ const QuestionCreate = () => {
         })
     }
 
+    const handleSubmit = async () => {
+        const axios = useAxios()
+        let {data} = await axios.post(`/admin/save`, question)
+        if(data?.error === false) {
+            alert(data.data._id)
+        } else {
+            alert(data?.msg)
+        }
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
-                <button
-                    className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    onClick={() => setShowModal(true)}
-                >
-                    + Add Question
-                </button>
+                <div className='flex flex-row justify-between'>
+
+                    <button
+                        className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        onClick={() => setShowModal(true)}
+                    >
+                        + Add Question
+                    </button>
+
+                    <button
+                        className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        onClick={() => handleSubmit()}
+                    >
+                        Save
+                    </button>
+
+                </div>
 
                 {
                     question.map((mainItem, mainIndex) => {
