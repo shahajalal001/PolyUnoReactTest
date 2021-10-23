@@ -248,7 +248,7 @@ const QuestionCreate = () => {
 
 
 
-                                <form>
+
                                     {mainItem.questions.map((item, index) => (
                                         <div className="" key={`item-${index}`}>
                                             <div className="flex">
@@ -372,7 +372,6 @@ const QuestionCreate = () => {
                                     >
                                         Add
                                     </button>
-                                </form>
 
 
 
