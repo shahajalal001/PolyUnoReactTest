@@ -255,7 +255,7 @@ const QuestionCreate = () => {
                                                 <div>
                                                     <input
                                                         type="text"
-                                                        className='mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                                        className='mb-3 shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                                         name="label"
                                                         placeholder="Label"
                                                         value={item.label}
