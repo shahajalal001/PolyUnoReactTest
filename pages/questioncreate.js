@@ -22,6 +22,49 @@ const QuestionCreate = () => {
         })
     }
 
+    const handleQuestionRemove = (e, index) => {
+        e.preventDefault();
+        setQuestion((prev) => prev.filter((item) => item !== prev[index]));
+    }
+
+    const handleQuestionFieldAdd = (e, index) => {
+        e.preventDefault();
+        setQuestion(prev => {
+            return prev.map((item, i) => {
+                if (i !== index) {
+                    return item;
+                }
+                let newField = {
+                    component: "text",
+                    label: "",
+                    type: "text",
+                    _uid: uniqueString(),
+                    options: []
+                }
+                item.questions = [
+                    ...item.questions,
+                    newField
+                ]
+                return item
+            })
+        })
+    }
+
+    const handleQuestionFieldRemove = (e, mainIndex, index) => {
+        e.preventDefault();
+        setQuestion(prev => {
+            return prev.map((item,i) => {
+                if (i !== mainIndex) {
+                    return item;
+                }
+                let questions = item.questions
+                questions = questions.filter((s_item) => s_item !== questions[index])
+                item.questions = questions
+                return item
+            })
+        });
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
@@ -47,6 +90,7 @@ const QuestionCreate = () => {
                                     />
                                     <button
                                         className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        onClick={(e) => handleQuestionRemove(e, mainIndex)}
                                     >
                                         X
                                     </button>
@@ -74,7 +118,7 @@ const QuestionCreate = () => {
 
                                                 <button
                                                     className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                    //onClick={(e) => handleRemoveField(e, index)}
+                                                    onClick={(e) => handleQuestionFieldRemove(e, mainIndex, index)}
                                                 >
                                                     X
                                                 </button>
@@ -176,7 +220,8 @@ const QuestionCreate = () => {
                                             }
                                         </div>
                                     ))}
-                                    <button className="mt-5 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" //onClick={handleAddLink}
+                                    <button className="mt-5 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                            onClick={e => handleQuestionFieldAdd(e, mainIndex)}
                                     >
                                         Add
                                     </button>
