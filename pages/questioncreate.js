@@ -6,6 +6,7 @@ import Form from "../components/form";
 const QuestionCreate = () => {
     const [showModal, setShowModal] = useState(false);
     const [question, setQuestion] = useState([]);
+    const [value, setOption] = useState('text-0-0');
 
     const onQuestionTitleChanged = (index, event) => {
         event.preventDefault();
@@ -85,9 +86,61 @@ const QuestionCreate = () => {
         })
     }
 
+    const handleOptionChange = (mainIndex, index, event, value, type, component) => {
+        setOption(value)
+        setQuestion(prev => {
+            return prev.map((item, i) => {
+                if (i !== mainIndex) {
+                    return item;
+                }
+                item.questions.map((element, j) => {
+                    if (j !== index) {
+                        return element;
+                    }
+                    if(component === 'checkbox'){
+                        element.type = type
+                        element.component = component
+                        element.options = [{
+                            component: "checkbox",
+                            label: element.label,
+                            value: uniqueString()
+                        }]
+                    }else if(component === 'radio'){
+                        element.type = type
+                        element.component = component
+                        element.options = [
+                            {
+                                component: "radio",
+                                label: 'Option 1',
+                                value: uniqueString()
+                            },
+                            {
+                                component: "radio",
+                                label: 'Option 2',
+                                value: uniqueString()
+                            },
+                            {
+                                component: "radio",
+                                label: 'Option 3',
+                                value: uniqueString()
+                            }
+                        ]
+                    }else{
+                        element.type = type
+                        element.component = component
+                        element.options = []
+                    }
+                    return element
+                })
+                return item
+            })
+        })
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
+                {/*{JSON.stringify(question)}*/}
                 <button
                     className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     onClick={() => setShowModal(true)}
@@ -143,63 +196,63 @@ const QuestionCreate = () => {
                                                     X
                                                 </button>
                                             </div>
-                                            <div className='mb-3' key={`select-type-${index}`}>
-                                                <label htmlFor={`text-radio-${index}}`} className="inline-flex items-center">
+                                            <div className='mb-3' key={`select-type-${index}-${mainIndex}`}>
+                                                <label htmlFor={`text-radio-${index}-${mainIndex}`} className="inline-flex items-center">
                                                     <input
                                                         className="form-radio"
                                                         type='radio'
-                                                        id={`text-radio-${index}}`}
+                                                        id={`text-radio-${index}-${mainIndex}`}
                                                         name='type'
-                                                        value={`text-${index}`}
-                                                        //checked={value === `text-${index}`}
-                                                        // onChange={(e) => {
-                                                        //     handleOptionChange(index, e, e.target.value, 'text', 'text')
-                                                        // }}
+                                                        value={`text-${index}-${mainIndex}`}
+                                                        checked={value === `text-${index}-${mainIndex}`}
+                                                        onChange={(e) => {
+                                                            handleOptionChange(mainIndex, index, e, e.target.value, 'text', 'text')
+                                                        }}
                                                     />
                                                     <span className="ml-2">Simple</span>
                                                 </label>
 
-                                                <label htmlFor={`multiline-radio-${index}}`} className="ml-2 inline-flex items-center">
+                                                <label htmlFor={`multiline-radio-${index}-${mainIndex}`} className="ml-2 inline-flex items-center">
                                                     <input
                                                         className="form-radio"
                                                         type='radio'
-                                                        id={`multiline-radio-${index}}`}
+                                                        id={`multiline-radio-${index}-${mainIndex}`}
                                                         name='type'
-                                                        value={`textarea-${index}`}
-                                                        //checked={value === `textarea-${index}`}
-                                                        // onChange={(e) => {
-                                                        //     handleOptionChange(index, e, e.target.value, 'textarea', 'textarea')
-                                                        // }}
+                                                        value={`textarea-${index}-${mainIndex}`}
+                                                        checked={value === `textarea-${index}-${mainIndex}`}
+                                                        onChange={(e) => {
+                                                            handleOptionChange(mainIndex, index, e, e.target.value, 'textarea', 'textarea')
+                                                        }}
                                                     />
                                                     <span className="ml-2">Multiline</span>
                                                 </label>
 
-                                                <label htmlFor={`radio-radio-${index}}`} className="ml-2 inline-flex items-center">
+                                                <label htmlFor={`radio-radio-${index}-${mainIndex}`} className="ml-2 inline-flex items-center">
                                                     <input
                                                         className="form-radio"
                                                         type='radio'
-                                                        id={`radio-radio-${index}}`}
+                                                        id={`radio-radio-${index}-${mainIndex}`}
                                                         name='type'
-                                                        value={`radio-${index}`}
-                                                        //checked={value === `radio-${index}`}
-                                                        // onChange={(e) => {
-                                                        //     handleOptionChange(index, e, e.target.value, 'radio', 'radio')
-                                                        // }}
+                                                        value={`radio-${index}-${mainIndex}`}
+                                                        checked={value === `radio-${index}-${mainIndex}`}
+                                                        onChange={(e) => {
+                                                            handleOptionChange(mainIndex, index, e, e.target.value, 'radio', 'radio')
+                                                        }}
                                                     />
                                                     <span className="ml-2">Radio</span>
                                                 </label>
 
-                                                <label htmlFor={`checkbox-radio-${index}}`} className="ml-2 inline-flex items-center">
+                                                <label htmlFor={`checkbox-radio-${index}-${mainIndex}`} className="ml-2 inline-flex items-center">
                                                     <input
                                                         className="form-radio"
                                                         type='radio'
-                                                        id={`checkbox-radio-${index}}`}
+                                                        id={`checkbox-radio-${index}-${mainIndex}`}
                                                         name='type'
-                                                        value={`checkbox-${index}`}
-                                                        //checked={value === `checkbox-${index}`}
-                                                        // onChange={(e) => {
-                                                        //     handleOptionChange(index, e, e.target.value, 'checkbox', 'checkbox')
-                                                        // }}
+                                                        value={`checkbox-${index}-${mainIndex}`}
+                                                        checked={value === `checkbox-${index}-${mainIndex}`}
+                                                        onChange={(e) => {
+                                                            handleOptionChange(mainIndex, index, e, e.target.value, 'checkbox', 'checkbox')
+                                                        }}
                                                     />
                                                     <span className="ml-2">CheckBox</span>
                                                 </label>
