@@ -164,6 +164,27 @@ const QuestionCreate = () => {
         })
     }
 
+    const handleRemoveRadioField = (mainIndex, index, index_one, e) => {
+        e.preventDefault()
+        setQuestion(prev => {
+            return prev.map((item, i) => {
+                if (i !== mainIndex) {
+                    return item;
+                }
+                item.questions.map((element, j) => {
+                    if (j !== index) {
+                        return element;
+                    }
+                    let options = element.options
+                    options = options.filter(element_one => element_one !== options[index_one])
+                    element.options = options
+                    return element
+                })
+                return item
+            })
+        })
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
@@ -298,7 +319,7 @@ const QuestionCreate = () => {
 
                                                         <button
                                                             className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                            //onClick={(e) => handleRemoveRadioField(e, index_one, item)}
+                                                            onClick={(e) => handleRemoveRadioField(mainIndex, index, index_one, e)}
                                                         >
                                                             X
                                                         </button>
