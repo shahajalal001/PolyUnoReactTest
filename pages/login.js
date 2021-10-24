@@ -27,7 +27,7 @@ const Login = () => {
             })
             if(data?.error === false) {
                 Cookies.set('token', data.token)
-                await router.push('/questioncreate')
+                await router.push('/questions')
             } else {
                 await Swal.fire({
                     title: "Error",

@@ -2,6 +2,7 @@ import useAxios from "../app/axios";
 import {useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import {useRouter} from "next/router";
+import Cookies from "js-cookie";
 
 const Questions = () => {
     let router = useRouter()
@@ -26,6 +27,10 @@ const Questions = () => {
     const handleAnswerPage = async (data) => {
         await router.push({pathname: '/answers', query: {_id: data}})
     }
+    const handleLogout = async () => {
+        Cookies.remove('token')
+        await router.push('/login')
+    }
     return (
         <div className="bg-white rounded-lg shadow-lg py-6">
             <div className='flex justify-end mr-7'>
@@ -34,6 +39,13 @@ const Questions = () => {
                     onClick={() => handleAddNew()}
                 >
                     Add New
+                </button>
+
+                <button
+                    className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={() => handleLogout()}
+                >
+                    Logout
                 </button>
             </div>
 

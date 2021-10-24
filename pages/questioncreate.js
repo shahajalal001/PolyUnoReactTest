@@ -5,7 +5,6 @@ import Form from "../components/form";
 import useAxios from "../app/axios";
 import Swal from "sweetalert2";
 import {useRouter} from "next/router";
-import Cookies from "js-cookie";
 
 const QuestionCreate = () => {
     let router = useRouter()
@@ -240,30 +239,16 @@ const QuestionCreate = () => {
 
     }
 
-    const handleLogout = async () => {
-        Cookies.remove('token')
-        await router.push('/login')
-    }
-
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
                 <div className='flex flex-row justify-between'>
-
                     <button
                         className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         onClick={() => setShowModal(true)}
                     >
                         + Add Question
                     </button>
-
-                    <button
-                        className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={() => handleSubmit()}
-                    >
-                        Save
-                    </button>
-
                 </div>
 
                 {
@@ -286,13 +271,6 @@ const QuestionCreate = () => {
                                         X
                                     </button>
                                 </div>
-
-
-
-
-
-
-
                                     {mainItem.questions.map((item, index) => (
                                         <div className="" key={`item-${index}`}>
                                             <div className="flex">
@@ -416,13 +394,6 @@ const QuestionCreate = () => {
                                     >
                                         Add
                                     </button>
-
-
-
-
-
-
-
                             </div>
                         )
                     })
@@ -431,15 +402,6 @@ const QuestionCreate = () => {
             </div>
 
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
-                <div className='flex justify-end'>
-                    <button
-                        className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={() => handleLogout()}
-                    >
-                        Logout
-                    </button>
-                </div>
-
                 {
                     question.map(question => {
                             return (
@@ -451,12 +413,8 @@ const QuestionCreate = () => {
                     )
                 }
                 <div className='w-max mx-auto mb-5'>
-                    <button className='mt-5 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Submit</button>
+                    <button className='mt-5 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' onClick={() => handleSubmit()}>Submit</button>
                 </div>
-
-
-
-
             </div>
 
             <div>
