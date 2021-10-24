@@ -89,6 +89,8 @@ const AnswerView = ({data}) => {
         if(subItem.type === 'radio'){
             let data = subItem.options.find(element => subItem.value === element.value)
             return data.label
+        }else if(subItem.type === 'file'){
+            return `https://polyunobackend.shahajalalit.com/images/${subItem.value}`
         }else{
             return `${subItem.value}`
         }
