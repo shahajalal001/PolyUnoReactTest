@@ -4,8 +4,11 @@ import uniqueString from "unique-string";
 import Form from "../components/form";
 import useAxios from "../app/axios";
 import Swal from "sweetalert2";
+import {useRouter} from "next/router";
+import Cookies from "js-cookie";
 
 const QuestionCreate = () => {
+    let router = useRouter()
     const [showModal, setShowModal] = useState(false);
     const [question, setQuestion] = useState([]);
     const [value, setOption] = useState('text-0-0');
@@ -242,6 +245,11 @@ const QuestionCreate = () => {
 
     }
 
+    const handleLogout = async () => {
+        Cookies.remove('token')
+        await router.push('/login')
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
@@ -428,8 +436,14 @@ const QuestionCreate = () => {
             </div>
 
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
-
-
+                <div className='flex justify-end'>
+                    <button
+                        className="mb-3 ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        onClick={() => handleLogout()}
+                    >
+                        Logout
+                    </button>
+                </div>
 
                 {
                     question.map(question => {
