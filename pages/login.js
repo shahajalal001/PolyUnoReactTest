@@ -58,7 +58,7 @@ const Login = () => {
                             className="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">Email</span> <input
                             onChange={(e) => onEmailChange(e)}
                             value={email}
-                            type="text"
+                            type="email"
                             className="h-12 px-2 w-full border-2 rounded focus:outline-none focus:border-red-600"/></div>
                         <div className="mt-4 relative"><span
                             className="absolute p-1 bottom-8 ml-2 bg-white text-gray-400 ">Password</span> <input
