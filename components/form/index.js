@@ -7,7 +7,7 @@ import Radio from "../radio";
 const Form = ({ question }) => {
     const formData = question.questions
     const fieldChanged = (fieldId, value) => {
-        console.log(value)
+        console.log(formData)
     };
 
     const onSubmit = (e) => {

@@ -18,9 +18,9 @@ const DynamicCheck = () => {
     return(
         <div className='w-full max-w-4xl mx-auto'>
             {
-                question?.map(question => {
+                question?.map((question, index) => {
                         return (
-                            <div>
+                            <div key={`question-${index}`}>
                                 <Form question={question} />
                             </div>
                         )
