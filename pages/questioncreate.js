@@ -3,6 +3,7 @@ import Modal from "../components/modal";
 import uniqueString from "unique-string";
 import Form from "../components/form";
 import useAxios from "../app/axios";
+import Swal from "sweetalert2";
 
 const QuestionCreate = () => {
     const [showModal, setShowModal] = useState(false);
@@ -214,13 +215,31 @@ const QuestionCreate = () => {
     }
 
     const handleSubmit = async () => {
-        const axios = useAxios()
-        let {data} = await axios.post(`/admin/save`, question)
-        if(data?.error === false) {
-            alert(data.data._id)
-        } else {
-            alert(data?.msg)
+        if(question.length > 0){
+            const axios = useAxios()
+            let {data} = await axios.post(`/admin/save`, question)
+            if(data?.error === false) {
+                let link = 'http://localhost:3000/' + data.data._id
+                await Swal.fire({
+                    title: "Success",
+                    html: link,
+                    icon: 'success'
+                })
+            } else {
+                await Swal.fire({
+                    title: "Error",
+                    html: data?.msg,
+                    icon: 'error'
+                })
+            }
+        }else{
+            await Swal.fire({
+                title: "Error",
+                html: 'Add Question',
+                icon: 'error'
+            })
         }
+
     }
 
     return(
