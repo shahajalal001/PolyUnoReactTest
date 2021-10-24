@@ -2,12 +2,15 @@ import useAxios from "../app/axios";
 import {useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import {useRouter} from "next/router";
+import {Modal} from "antd";
 
 const Answers = () => {
     const router = useRouter()
     const { _id } = router.query
     const axios = useAxios()
     const [questions, setQuestions] = useState([])
+    const [visible, setVisible] = useState(false);
+    const [answer, setAnswer] = useState([]);
     useEffect(() => {
         axios.post('/admin/get-answers', {_id}).then(({error, data}) => {
             if (data?.error === false) {
@@ -22,11 +25,22 @@ const Answers = () => {
         })
     })
     const handleModal = async (answers) => {
-        console.log(answers)
-        await router.push({pathname: '/answerview', query: {data: JSON.stringify(answers)}})
+        setAnswer(answers)
+        setVisible(true)
     }
     return (
         <div>
+            <Modal
+                title="All Answers"
+                centered
+                visible={visible}
+                onOk={() => setVisible(false)}
+                onCancel={() => setVisible(false)}
+                width={1000}
+            >
+                <AnswerView  data={answer}/>
+            </Modal>
+
             <div className="bg-white rounded-lg shadow-lg py-6">
                 <div className="block overflow-x-auto mx-6">
                     <table className="w-full text-left rounded-lg">
@@ -67,3 +81,60 @@ const Answers = () => {
     )
 }
 export default Answers
+
+
+const AnswerView = ({data}) => {
+
+    const getLabel = (subItem) => {
+        if(subItem.type === 'radio'){
+            let data = subItem.options.find(element => subItem.value === element.value)
+            return data.label
+        }else{
+            return `${subItem.value}`
+        }
+    }
+    return (
+        <>
+            {
+                data.map((item, index) => {
+                    return (
+                        <main className="flex m-5 items-center justify-center bg-gray-100" key={`q-item-${index}`}>
+                            <div
+                                className="overflow-hidden bg-white flex-none container relative shadow-lg rounded-lg px-12 py-6"
+                            >
+                                <div className="relative z-20">
+                                    <div
+                                        className="rounded-lg bg-gray-100 p-2 text-center font-bold text-gray-800 mt-8">
+                                        <div className="bg-white p-5">
+                                            {
+                                                item.title
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-8">
+                                        {
+                                            item.questions.map((subItem, subIndex) => {
+                                                return (
+                                                    <div key={`sub-item-${subIndex}`}
+                                                         className="option-default bg-gray-100 p-2 rounded-lg mb-3 relative"
+                                                    >
+                                                        <div className="rounded-lg font-bold flex p-2">
+                                                            <div className="p-3 rounded-lg">{subItem.label}</div>
+                                                            <div className="flex items-center pl-6">{getLabel(subItem)}</div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    )
+                })
+            }
+        </>
+
+    )
+}
