@@ -222,12 +222,7 @@ const QuestionCreate = () => {
             const axios = useAxios()
             let {data} = await axios.post(`/admin/save`, question)
             if(data?.error === false) {
-                let link = 'https://polyuno.shahajalalit.com/' + data.data._id
-                await Swal.fire({
-                    title: "Success",
-                    html: link,
-                    icon: 'success'
-                })
+                await router.push('/questions')
             } else {
                 await Swal.fire({
                     title: "Error",

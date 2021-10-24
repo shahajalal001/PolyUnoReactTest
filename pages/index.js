@@ -10,7 +10,7 @@ const Home = () => {
     useEffect(() => {
         axios.post('/admin/verify', {token: Cookies.get('token')}).then(({error, data}) => {
             if (data?.error === false) {
-                router.push('/questioncreate')
+                router.push('/questions')
             } else {
                 router.push('/login')
             }
