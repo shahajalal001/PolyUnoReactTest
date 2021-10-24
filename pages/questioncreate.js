@@ -239,6 +239,10 @@ const QuestionCreate = () => {
 
     }
 
+    const fieldChanged = (index, fieldId, value) => {
+
+    }
+
     return(
         <div className='grid grid-cols-2'>
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
@@ -352,6 +356,21 @@ const QuestionCreate = () => {
                                                     />
                                                     <span className="ml-2">CheckBox</span>
                                                 </label>
+
+                                                <label htmlFor={`file-radio-${index}-${mainIndex}`} className="ml-2 inline-flex items-center">
+                                                    <input
+                                                        className="form-radio"
+                                                        type='radio'
+                                                        id={`file-radio-${index}-${mainIndex}`}
+                                                        name='type'
+                                                        value={`file-${index}-${mainIndex}`}
+                                                        checked={value === `file-${index}-${mainIndex}`}
+                                                        onChange={(e) => {
+                                                            handleOptionChange(mainIndex, index, e, e.target.value, 'file', 'file')
+                                                        }}
+                                                    />
+                                                    <span className="ml-2">File</span>
+                                                </label>
                                             </div>
                                             {
                                                 item.options?.length > 0 && item.options[0].component === 'radio' && item.options.map((item_one, index_one) =>(
@@ -406,7 +425,7 @@ const QuestionCreate = () => {
                     question.map(question => {
                             return (
                                 <div>
-                                    <Form question={question} />
+                                    <Form question={question} fieldChanged={fieldChanged}/>
                                 </div>
                             )
                         }

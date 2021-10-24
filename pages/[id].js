@@ -57,6 +57,12 @@ const DynamicCheck = () => {
                 })
             }
     }
+
+    const handleFileUpload = async(file) => {
+        const data = new FormData()
+        data.append('image', file)
+
+    }
     return(
         <div className='w-full max-w-4xl mx-auto'>
             {

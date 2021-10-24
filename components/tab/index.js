@@ -72,6 +72,27 @@ const Tabs = ({ color , setTab}) => {
                                 Selection
                             </a>
                         </li>
+
+                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                            <a
+                                className={
+                                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
+                                    (openTab === 4
+                                        ? "text-white bg-" + color + "-600"
+                                        : "text-" + color + "-600 bg-white")
+                                }
+                                onClick={e => {
+                                    e.preventDefault();
+                                    setOpenTab(4);
+                                    setTab(4);
+                                }}
+                                data-toggle="tab"
+                                href="#file"
+                                role="tablist"
+                            >
+                                File
+                            </a>
+                        </li>
                     </ul>
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                         <div className="px-4 py-5 flex-auto">
@@ -163,6 +184,17 @@ const Tabs = ({ color , setTab}) => {
                                             />
                                             <span className="ml-2">Option 3</span>
                                         </label>
+                                    </div>
+                                </div>
+                                <div className={openTab === 4 ? "block" : "hidden"} id="open">
+                                    <div className='px-2 py-2'>
+                                        <label htmlFor={'simple_file_field_id'} className="block text-gray-700 text-sm font-bold mb-2">File</label>
+                                        <input
+                                            className="shadow appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            type='file'
+                                            id={'simple_file_field_id'}
+                                            name={'simple_file_field_id'}
+                                        />
                                     </div>
                                 </div>
                             </div>

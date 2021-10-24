@@ -1,8 +1,8 @@
-import FieldGroup from "../fieldgroup";
 import Field from "../field";
 import Options from "../option";
 import TextArea from "../textarea";
 import Radio from "../radio";
+import File from "../file";
 
 const Form = ({ question, fieldChanged, questionIndex }) => {
     const formData = question.questions
@@ -19,13 +19,14 @@ const Form = ({ question, fieldChanged, questionIndex }) => {
                 {formData
                     .map((field) => {
                         switch (field.component) {
-                            case "field_group":
+                            case "file":
                                 return (
-                                    <FieldGroup
+                                    <File
                                         key={field._uid}
                                         field={field}
                                         fieldChanged={fieldChanged}
-                                        values={field.fields}
+                                        value={formData[field._uid]}
+                                        index={questionIndex}
                                     />
                                 );
                             case "checkbox":

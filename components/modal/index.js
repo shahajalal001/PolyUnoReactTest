@@ -109,6 +109,22 @@ const Modal = ({setShowModal, setQuestion}) => {
             };
             setQuestion((prev) => [...prev, inputState]);
         }
+
+        if(tab === 4){
+            const inputState = {
+                title: 'Your custom question title',
+                questions: [
+                    {
+                        component: "file",
+                        label: "",
+                        type: "file",
+                        _uid: uniqueString(),
+                        options: []
+                    },
+                ]
+            };
+            setQuestion((prev) => [...prev, inputState]);
+        }
     }
     return(
         <>
