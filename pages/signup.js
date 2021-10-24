@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import {useState} from "react";
 import useAxios from "../app/axios";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 const SignUp = () => {
     const router = useRouter()
     const [email, setEmail] = useState('')
@@ -39,11 +40,8 @@ const SignUp = () => {
                 last_name
             })
             if(data?.error === false) {
-                await Swal.fire({
-                    title: "Success",
-                    html: JSON.stringify(data.data),
-                    icon: 'success'
-                })
+                Cookies.set('token', data.token)
+                await router.push('/questioncreate')
             } else {
                 await Swal.fire({
                     title: "Error",
