@@ -1,6 +1,6 @@
 import {Fragment, useState} from "react";
 
-const Options = ({field, fieldChanged}) => {
+const Options = ({field, fieldChanged, questionIndex}) => {
     const [value, setValue] = useState(true);
     const selectChange = (value) => {
         setValue(!value)
@@ -20,7 +20,7 @@ const Options = ({field, fieldChanged}) => {
                                     value={field.label}
                                     checked={value}
                                     onChange={(e) => {
-                                        fieldChanged(field._uid, e.target.value);
+                                        fieldChanged(questionIndex, field._uid, e.target.value);
                                         selectChange(value);
                                     }}
                                 />

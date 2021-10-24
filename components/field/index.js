@@ -1,5 +1,5 @@
 
-const Field = ({field, fieldChanged, type, value}) => {
+const Field = ({field, fieldChanged, type, value, index}) => {
     return (
         <div key={field._uid} className='px-2 py-2'>
             <label htmlFor={field._uid} className="block text-gray-700 text-sm font-bold mb-2">{field.label}</label>
@@ -10,7 +10,7 @@ const Field = ({field, fieldChanged, type, value}) => {
                 name={field._uid}
                 value={value}
                 onChange={(e)=> {
-                    fieldChanged(field._uid, e.target.value)
+                    fieldChanged(index, field._uid, e.target.value)
                 }}
             />
         </div>

@@ -1,6 +1,6 @@
 import {Fragment, useState} from "react";
 
-const Radio = ({field, fieldChanged}) => {
+const Radio = ({field, fieldChanged, questionIndex}) => {
     const [value, setValue] = useState('');
     const selectChange = (value) => {
         setValue(value)
@@ -21,7 +21,7 @@ const Radio = ({field, fieldChanged}) => {
                                     value={option.value}
                                     checked={value === option.value}
                                     onChange={(e) => {
-                                        fieldChanged(field._uid, e.target.value);
+                                        fieldChanged(questionIndex, field._uid, e.target.value);
                                         selectChange(option.value);
                                     }}
                                 />

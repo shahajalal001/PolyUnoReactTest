@@ -4,11 +4,8 @@ import Options from "../option";
 import TextArea from "../textarea";
 import Radio from "../radio";
 
-const Form = ({ question }) => {
+const Form = ({ question, fieldChanged, questionIndex }) => {
     const formData = question.questions
-    const fieldChanged = (fieldId, value) => {
-        console.log(formData)
-    };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -37,6 +34,7 @@ const Form = ({ question }) => {
                                         key={field._uid}
                                         field={field}
                                         fieldChanged={fieldChanged}
+                                        questionIndex={questionIndex}
                                     />
                                 );
                             case "radio":
@@ -45,6 +43,7 @@ const Form = ({ question }) => {
                                         key={field._uid}
                                         field={field}
                                         fieldChanged={fieldChanged}
+                                        questionIndex={questionIndex}
                                     />
                                 );
                             case "textarea":
@@ -53,6 +52,7 @@ const Form = ({ question }) => {
                                         key={field._uid}
                                         field={field}
                                         fieldChanged={fieldChanged}
+                                        index={questionIndex}
                                     />
                                 );
                             default:
@@ -62,6 +62,7 @@ const Form = ({ question }) => {
                                         field={field}
                                         fieldChanged={fieldChanged}
                                         value={formData[field._uid]}
+                                        index={questionIndex}
                                     />
                                 );
                         }
