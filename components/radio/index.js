@@ -18,11 +18,11 @@ const Radio = ({field, fieldChanged}) => {
                                     type={field.type}
                                     id={option.value}
                                     name={field._uid}
-                                    value={field.value}
-                                    checked={value === field.value}
+                                    value={option.value}
+                                    checked={value === option.value}
                                     onChange={(e) => {
                                         fieldChanged(field._uid, e.target.value);
-                                        selectChange(field.value);
+                                        selectChange(option.value);
                                     }}
                                 />
                                 <span className="ml-2">{option.label}</span>
