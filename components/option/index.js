@@ -20,7 +20,7 @@ const Options = ({field, fieldChanged, questionIndex}) => {
                                     value={field.label}
                                     checked={value}
                                     onChange={(e) => {
-                                        fieldChanged(questionIndex, field._uid, e.target.value);
+                                        fieldChanged(questionIndex, field._uid, !value);
                                         selectChange(value);
                                     }}
                                 />
