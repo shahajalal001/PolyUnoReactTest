@@ -222,7 +222,7 @@ const QuestionCreate = () => {
             const axios = useAxios()
             let {data} = await axios.post(`/admin/save`, question)
             if(data?.error === false) {
-                let link = 'http://localhost:3000/' + data.data._id
+                let link = 'https://polyuno.shahajalalit.com/' + data.data._id
                 await Swal.fire({
                     title: "Success",
                     html: link,

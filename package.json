@@ -5,7 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p 6200",
+    "export": "next export"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.4",
