@@ -38,6 +38,13 @@ const DynamicCheck = () => {
     }
 
     const handleSubmit = async () => {
+        for(let i=0; i<question?.length; i++){
+            for(let j=0; j<question[i].questions.length; j++){
+                if(question[i].questions[j].type === 'file'){
+                    await handleFileUpload(i, question[i].questions[j]._uid, question[i].questions[j].value)
+                }
+            }
+        }
             const axios = useAxios()
             let {data} = await axios.post(`/admin/save-answer`, {
                 question_id,
@@ -58,10 +65,17 @@ const DynamicCheck = () => {
             }
     }
 
-    const handleFileUpload = async(file) => {
-        const data = new FormData()
-        data.append('image', file)
+    const handleFileUpload = async(questionIndex, _uid, file) => {
+        const formData = new FormData()
+        formData.append('image', file)
+        const axios = useAxios()
 
+        let {data} = await axios.post(`/admin/file-upload`, formData)
+        if(data?.error === false) {
+            fieldChanged(questionIndex, _uid, data.data)
+        } else {
+            fieldChanged(questionIndex, _uid, '')
+        }
     }
     return(
         <div className='w-full max-w-4xl mx-auto'>
