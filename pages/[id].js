@@ -38,13 +38,19 @@ const DynamicCheck = () => {
     }
 
     const handleSubmit = async () => {
+        let submitOrNot = true
         for(let i=0; i<question?.length; i++){
             for(let j=0; j<question[i].questions.length; j++){
+                if(!question[i].questions[j].value){
+                    submitOrNot = false
+                    break
+                }
                 if(question[i].questions[j].type === 'file'){
                     await handleFileUpload(i, question[i].questions[j]._uid, question[i].questions[j].value)
                 }
             }
         }
+        if(submitOrNot){
             const axios = useAxios()
             let {data} = await axios.post(`/admin/save-answer`, {
                 question_id,
@@ -63,6 +69,13 @@ const DynamicCheck = () => {
                     icon: 'error'
                 })
             }
+        }else{
+            await Swal.fire({
+                title: "Error",
+                html: "Properly fill up the form",
+                icon: 'error'
+            })
+        }
     }
 
     const handleFileUpload = async(questionIndex, _uid, file) => {
