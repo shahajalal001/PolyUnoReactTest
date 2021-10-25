@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 import Cookies from 'js-cookie'
 const Login = () => {
     const router = useRouter()
-    const [email, setEmail] = useState('shahajalal001@gmail.com')
-    const [password, setPassword] = useState('1234')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const onEmailChange = (event) => {
         event.preventDefault();
         event.persist();
