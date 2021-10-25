@@ -41,7 +41,7 @@ const DynamicCheck = () => {
         let submitOrNot = true
         for(let i=0; i<question?.length; i++){
             for(let j=0; j<question[i].questions.length; j++){
-                if(!question[i].questions[j].value){
+                if(!question[i].questions[j].hasOwnProperty('value')){
                     submitOrNot = false
                     break
                 }

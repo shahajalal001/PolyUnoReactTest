@@ -1,7 +1,10 @@
-import {Fragment, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 
 const Options = ({field, fieldChanged, questionIndex}) => {
     const [value, setValue] = useState(true);
+    useEffect(() => {
+        fieldChanged(questionIndex, field._uid, value);
+    },[])
     const selectChange = (value) => {
         setValue(!value)
     };
