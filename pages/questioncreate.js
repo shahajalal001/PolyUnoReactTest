@@ -277,7 +277,7 @@ const QuestionCreate = () => {
                                 </div>
                                     {mainItem.questions.map((item, index) => (
                                         <div className="" key={`item-${index}`}>
-                                            <div className="flex">
+                                            <div className="flex" key={`item1-item2-${index}`}>
                                                 <div>
                                                     <input
                                                         type="text"
@@ -422,9 +422,9 @@ const QuestionCreate = () => {
 
             <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border-2 border-blue-900 m-5'>
                 {
-                    question.map(question => {
+                    question.map((question, index) => {
                             return (
-                                <div>
+                                <div key={`qitem-qitem-${index}`}>
                                     <Form question={question} fieldChanged={fieldChanged}/>
                                 </div>
                             )
